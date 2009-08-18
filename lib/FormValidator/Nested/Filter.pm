@@ -56,9 +56,9 @@ FormValidator::Nested::Filter - form filter
 =head1 SYNOPSIS
 
     use FormValidator::Nested::Filter;
-    use Path::Class;
+    use Class::Param;
 
-    my $req = Path::Class->new();
+    my $req = Class::Param->new({ ... });
     my $fvt = FormValidator::Nested::Filter->new({
         profile_provider => FormValidator::Nested::ProfileProvider::YAML->new({
             dir => 't/var/profile',

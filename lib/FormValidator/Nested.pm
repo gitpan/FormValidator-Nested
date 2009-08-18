@@ -1,7 +1,7 @@
 package FormValidator::Nested;
 use Any::Moose;
 use namespace::clean -except => 'meta';
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use FormValidator::Nested::ProfileProvider;
 use FormValidator::Nested::Messages::ja;
@@ -39,9 +39,9 @@ FormValidator::Nested - form validation
 =head1 SYNOPSIS
 
     use FormValidator::Nested;
-    use Path::Class;
+    use Class::Param;
 
-    my $req = Path::Class->new();
+    my $req = Class::Param->new({ ... });
     my $fvt = FormValidator::Nested->new({
         profile_provider => FormValidator::Nested::ProfileProvider::YAML->new({
             dir => 't/var/profile',
@@ -49,7 +49,8 @@ FormValidator::Nested - form validation
     });
     my $res = $fvt->validate($req, 'login');
     if ( $res->has_error ) {
-        while ( my ( $key, $error_params ) = %{$res->error_params} ) {
+        my $error_param_ref = $res->error_params;
+        while ( my ( $key, $error_params ) = %{$error_param_ref} ) {
             foreach my $error_param ( @{$error_params} ) {
                 warn $error_param->msg;
             }
