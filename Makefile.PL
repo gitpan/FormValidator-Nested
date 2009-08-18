@@ -1,0 +1,32 @@
+use inc::Module::Install;
+name 'FormValidator-Nested';
+all_from 'lib/FormValidator/Nested.pm';
+
+# requires '';
+requires 'Any::Moose';
+requires_any_moose 'X::Types::Path::Class';
+requires_any_moose 'X::AttributeHelpers';
+requires 'namespace::clean';
+requires 'YAML::Syck';
+requires 'Path::Class';
+requires 'UNIVERSAL::require';
+requires 'Class::Param';
+requires 'Data::Visitor::Callback';
+requires 'Lingua::JA::Regular::Unicode';
+requires 'List::MoreUtils';
+requires 'Hash::Merge';
+requires 'DateTime';
+
+tests 't/*.t t/*/*.t t/*/*/*.t t/*/*/*/*.t';
+test_requires 'Test::More';
+test_requires 'YAML';
+test_requires 'Perl::Critic' => 1.098;
+test_requires 'Test::Perl::Critic';
+test_requires 'Test::Spelling';
+test_requires 'Test::Pod';
+test_requires 'Test::Fixture::DBIC::Schema';
+test_requires 'DBICx::TestDatabase';
+author_tests 'xt';
+use_test_base;
+auto_include;
+WriteAll;
