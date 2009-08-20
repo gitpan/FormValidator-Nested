@@ -1,5 +1,8 @@
 Changes
 inc/Data/Visitor/Callback.pm
+inc/DBICx/TestDatabase.pm
+inc/DBIx/Class.pm
+inc/DBIx/Class/Schema.pm
 inc/Module/Install.pm
 inc/Module/Install/Any/Moose.pm
 inc/Module/Install/AuthorTests.pm
@@ -12,6 +15,7 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 inc/Test/Exception.pm
+inc/Test/Fixture/DBIC/Schema.pm
 inc/Test/LoadAllModules.pm
 inc/Test/More.pm
 lib/FormValidator/Nested.pm
