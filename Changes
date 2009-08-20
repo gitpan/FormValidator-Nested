@@ -1,5 +1,8 @@
 Revision history for Perl extension FormValidator::Nested
 
+0.04    Thu Aug 20 03:38:59 2009
+        - fix requires and test_requires on Makefile.PL
+
 0.03    Thu Aug 20 02:06:26 2009
         - add test_requires 'Test::LoadAllModules'
 

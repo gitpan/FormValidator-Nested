@@ -3,16 +3,11 @@ abstract: 'form validation'
 author:
   - 'Masahiro Chiba <nihen@megabbs.com>'
 build_requires:
-  DBICx::TestDatabase: 0
+  Data::Visitor::Callback: 0
   ExtUtils::MakeMaker: 6.42
-  Perl::Critic: 1.098
-  Test::Fixture::DBIC::Schema: 0
+  Test::Exception: 0
   Test::LoadAllModules: 0
   Test::More: 0
-  Test::Perl::Critic: 0
-  Test::Pod: 0
-  Test::Spelling: 0
-  YAML: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -33,8 +28,8 @@ recommends:
 requires:
   Any::Moose: 0
   Class::Param: 0
-  Data::Visitor::Callback: 0
   DateTime: 0
+  DateTime::TimeZone: 0
   Hash::Merge: 0
   Lingua::JA::Regular::Unicode: 0
   List::MoreUtils: 0
@@ -46,4 +41,4 @@ requires:
   namespace::clean: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.03
+version: 0.04

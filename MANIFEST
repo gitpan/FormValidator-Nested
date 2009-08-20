@@ -1,5 +1,5 @@
 Changes
-inc/DBICx/TestDatabase.pm
+inc/Data/Visitor/Callback.pm
 inc/Module/Install.pm
 inc/Module/Install/Any/Moose.pm
 inc/Module/Install/AuthorTests.pm
@@ -11,14 +11,9 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-inc/Perl/Critic.pm
-inc/Test/Fixture/DBIC/Schema.pm
+inc/Test/Exception.pm
 inc/Test/LoadAllModules.pm
 inc/Test/More.pm
-inc/Test/Perl/Critic.pm
-inc/Test/Pod.pm
-inc/Test/Spelling.pm
-inc/YAML.pm
 lib/FormValidator/Nested.pm
 lib/FormValidator/Nested/Filter.pm
 lib/FormValidator/Nested/Filter/DateTime.pm
