@@ -13,6 +13,7 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 inc/Perl/Critic.pm
 inc/Test/Fixture/DBIC/Schema.pm
+inc/Test/LoadAllModules.pm
 inc/Test/More.pm
 inc/Test/Perl/Critic.pm
 inc/Test/Pod.pm

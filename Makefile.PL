@@ -26,6 +26,7 @@ test_requires 'Test::Spelling';
 test_requires 'Test::Pod';
 test_requires 'Test::Fixture::DBIC::Schema';
 test_requires 'DBICx::TestDatabase';
+test_requires 'Test::LoadAllModules';
 author_tests 'xt';
 use_test_base;
 auto_include;

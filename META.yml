@@ -7,6 +7,7 @@ build_requires:
   ExtUtils::MakeMaker: 6.42
   Perl::Critic: 1.098
   Test::Fixture::DBIC::Schema: 0
+  Test::LoadAllModules: 0
   Test::More: 0
   Test::Perl::Critic: 0
   Test::Pod: 0
@@ -45,4 +46,4 @@ requires:
   namespace::clean: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.02
+version: 0.03

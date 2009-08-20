@@ -1,5 +1,8 @@
 Revision history for Perl extension FormValidator::Nested
 
+0.03    Thu Aug 20 02:06:26 2009
+        - add test_requires 'Test::LoadAllModules'
+
 0.02    Tue Aug 18 12:29:09 2009
         - fix pod synopsis
 
