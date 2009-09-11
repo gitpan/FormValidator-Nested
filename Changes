@@ -1,5 +1,8 @@
 Revision history for Perl extension FormValidator::Nested
 
+0.05    Fri Sep 11 05:43:13 2009
+        - add japanese validator
+
 0.0401  Thu Aug 20 11:36:19 2009
         - fix test_requires
 

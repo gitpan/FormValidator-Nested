@@ -40,6 +40,7 @@ lib/FormValidator/Nested/Validator/DBIC.pm
 lib/FormValidator/Nested/Validator/Email.pm
 lib/FormValidator/Nested/Validator/File.pm
 lib/FormValidator/Nested/Validator/Internal.pm
+lib/FormValidator/Nested/Validator/Japanese.pm
 lib/FormValidator/Nested/Validator/NotBlank.pm
 lib/FormValidator/Nested/Validator/Number.pm
 lib/FormValidator/Nested/Validator/String.pm
@@ -61,6 +62,7 @@ t/04_05_FormValidator-Nested-Validator-Bool.t
 t/04_06_FormValidator-Nested-Validator-Number.t
 t/04_07_FormValidator-Nested-Validator-DateTime.t
 t/04_08_FormValidator-Nested-Validator-File.t
+t/04_09_FormValidator-Nested-Validator-Japanese.t
 t/05_CustomValidator.t
 t/06_nested.t
 t/07_if.t
@@ -88,6 +90,7 @@ t/var/profile/validator/dbic.yml
 t/var/profile/validator/email.yml
 t/var/profile/validator/file.yml
 t/var/profile/validator/file_noerror.yml
+t/var/profile/validator/japanese.yml
 t/var/profile/validator/number.yml
 t/var/profile/validator/string.yml
 xt/01_podspell.t

@@ -32,6 +32,9 @@ our $MESSAGES = {
     'Email#email' => '${name}の形式が正しくありません',
 
     'Internal#nested_hash' => '${name}は形式が正しくありません',
+
+    'Japanese#hiragana' => '${name}はひらがなで入力してください',
+    'Japanese#katakana' => '${name}はカタカナで入力してください',
 };
 
 
