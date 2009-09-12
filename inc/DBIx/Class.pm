@@ -4,10 +4,11 @@ package DBIx::Class;
 use strict;
 use warnings;
 
+use MRO::Compat;
+
 use vars qw($VERSION);
 use base qw/DBIx::Class::Componentised Class::Accessor::Grouped/;
 use DBIx::Class::StartupCheck;
-
 
 sub mk_classdata {
   shift->mk_classaccessor(@_);
@@ -25,9 +26,13 @@ sub component_base_class { 'DBIx::Class' }
 # i.e. first release of 0.XX *must* be 0.XX000. This avoids fBSD ports
 # brain damage and presumably various other packaging systems too
 
-$VERSION = '0.08107';
+$VERSION = '0.08111';
 
 $VERSION = eval $VERSION; # numify for warning-free dev releases
+
+# what version of sqlt do we require if deploy() without a ddl_dir is invoked
+# when changing also adjust $sqlt_recommends in Makefile.PL
+my $minimum_sqlt_version = '0.11002';
 
 sub MODIFY_CODE_ATTRIBUTES {
   my ($class,$code,@attrs) = @_;
@@ -44,6 +49,34 @@ sub _attr_cache {
   return $@ ? $cache : { %$cache, %$rest };
 }
 
+# SQLT version handling
+{
+  my $_sqlt_version_ok;     # private
+  my $_sqlt_version_error;  # private
+
+  sub _sqlt_version_ok {
+    if (!defined $_sqlt_version_ok) {
+      eval "use SQL::Translator $minimum_sqlt_version";
+      if ($@) {
+        $_sqlt_version_ok = 0;
+        $_sqlt_version_error = $@;
+      }
+      else {
+        $_sqlt_version_ok = 1;
+      }
+    }
+    return $_sqlt_version_ok;
+  }
+
+  sub _sqlt_version_error {
+    shift->_sqlt_version_ok unless defined $_sqlt_version_ok;
+    return $_sqlt_version_error;
+  }
+
+  sub _sqlt_minimum_version { $minimum_sqlt_version };
+}
+
+
 1;
 
-#line 344
+#line 397

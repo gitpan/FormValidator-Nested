@@ -9,7 +9,7 @@ use Carp::Clan qw/^DBIx::Class/;
 use Scalar::Util qw/weaken/;
 use File::Spec;
 use Sub::Name ();
-require Module::Find;
+use Module::Find();
 
 use base qw/DBIx::Class/;
 
@@ -115,16 +115,29 @@ sub load_namespaces {
     local *Class::C3::reinitialize = sub { };
     use warnings 'redefine';
 
-    # ensure classes are loaded and fetch properly sorted classes
+    # ensure classes are loaded and attached in inheritance order
     $class->ensure_class_loaded($_) foreach(values %results);
-    my @subclass_last = sort { $results{$a}->isa($results{$b}) } keys(%results);
-    
+    my %inh_idx;
+    my @subclass_last = sort {
+
+      ($inh_idx{$a} ||=
+        scalar @{mro::get_linear_isa( $results{$a} )}
+      )
+
+          <=>
+
+      ($inh_idx{$b} ||=
+        scalar @{mro::get_linear_isa( $results{$b} )}
+      )
+
+    } keys(%results);
+
     foreach my $result (@subclass_last) {
       my $result_class = $results{$result};
 
       my $rs_class = delete $resultsets{$result};
       my $rs_set = $class->_ns_get_rsrc_instance ($result_class)->resultset_class;
-      
+
       if($rs_set && $rs_set ne 'DBIx::Class::ResultSet') {
         if($rs_class && $rs_class ne $rs_set) {
           carp "We found ResultSet class '$rs_class' for '$result', but it seems "
@@ -153,7 +166,7 @@ sub load_namespaces {
   return;
 }
 
-#line 317
+#line 332
 
 sub load_classes {
   my ($class, @params) = @_;
@@ -216,22 +229,24 @@ sub load_classes {
   }
 }
 
-#line 508
+#line 523
 
 sub connect { shift->clone->connection(@_) }
 
-#line 527
+#line 542
 
 sub resultset {
   my ($self, $moniker) = @_;
+  $self->throw_exception('resultset() expects a source name')
+    unless defined $moniker;
   return $self->source($moniker)->resultset;
 }
 
-#line 546
+#line 563
 
 sub sources { return keys %{shift->source_registrations}; }
 
-#line 565
+#line 582
 
 sub source {
   my ($self, $moniker) = @_;
@@ -245,14 +260,14 @@ sub source {
   return $sreg->{$mapped};
 }
 
-#line 593
+#line 610
 
 sub class {
   my ($self, $moniker) = @_;
   return $self->source($moniker)->result_class;
 }
 
-#line 625
+#line 642
 
 sub txn_do {
   my $self = shift;
@@ -263,7 +278,7 @@ sub txn_do {
   $self->storage->txn_do(@_);
 }
 
-#line 641
+#line 658
 
 sub txn_scope_guard {
   my $self = shift;
@@ -274,7 +289,7 @@ sub txn_scope_guard {
   $self->storage->txn_scope_guard(@_);
 }
 
-#line 658
+#line 675
 
 sub txn_begin {
   my $self = shift;
@@ -285,7 +300,7 @@ sub txn_begin {
   $self->storage->txn_begin;
 }
 
-#line 675
+#line 692
 
 sub txn_commit {
   my $self = shift;
@@ -296,7 +311,7 @@ sub txn_commit {
   $self->storage->txn_commit;
 }
 
-#line 692
+#line 709
 
 sub txn_rollback {
   my $self = shift;
@@ -307,7 +322,7 @@ sub txn_rollback {
   $self->storage->txn_rollback;
 }
 
-#line 756
+#line 773
 
 sub populate {
   my ($self, $name, $data) = @_;
@@ -322,18 +337,18 @@ sub populate {
   }
 }
 
-#line 789
+#line 806
 
 sub connection {
   my ($self, @info) = @_;
   return $self if !@info && $self->storage;
-  
+
   my ($storage_class, $args) = ref $self->storage_type ? 
     ($self->_normalize_storage_type($self->storage_type),{}) : ($self->storage_type, {});
-    
+
   $storage_class = 'DBIx::Class::Storage'.$storage_class
     if $storage_class =~ m/^::/;
-  eval "require ${storage_class};";
+  eval { $self->ensure_class_loaded ($storage_class) };
   $self->throw_exception(
     "No arguments to load_classes and couldn't load ${storage_class} ($@)"
   ) if $@;
@@ -354,7 +369,7 @@ sub _normalize_storage_type {
   }
 }
 
-#line 852
+#line 869
 
 # this might be oversimplified
 # sub compose_namespace {
@@ -412,7 +427,7 @@ sub setup_connection_class {
   $target->connection(@info);
 }
 
-#line 916
+#line 933
 
 sub svp_begin {
   my ($self, $name) = @_;
@@ -423,7 +438,7 @@ sub svp_begin {
   $self->storage->svp_begin($name);
 }
 
-#line 933
+#line 950
 
 sub svp_release {
   my ($self, $name) = @_;
@@ -434,7 +449,7 @@ sub svp_release {
   $self->storage->svp_release($name);
 }
 
-#line 950
+#line 967
 
 sub svp_rollback {
   my ($self, $name) = @_;
@@ -445,7 +460,7 @@ sub svp_rollback {
   $self->storage->svp_rollback($name);
 }
 
-#line 972
+#line 989
 
 sub clone {
   my ($self) = @_;
@@ -465,7 +480,7 @@ sub clone {
   return $clone;
 }
 
-#line 1005
+#line 1022
 
 sub throw_exception {
   my $self = shift;
@@ -474,7 +489,7 @@ sub throw_exception {
     if !$self->exception_action || !$self->exception_action->(@_);
 }
 
-#line 1036
+#line 1053
 
 sub deploy {
   my ($self, $sqltargs, $dir) = @_;
@@ -482,7 +497,7 @@ sub deploy {
   $self->storage->deploy($self, undef, $sqltargs, $dir);
 }
 
-#line 1059
+#line 1076
 
 sub deployment_statements {
   my $self = shift;
@@ -493,7 +508,7 @@ sub deployment_statements {
   $self->storage->deployment_statements($self, @_);
 }
 
-#line 1084
+#line 1101
 
 sub create_ddl_dir {
   my $self = shift;
@@ -502,7 +517,7 @@ sub create_ddl_dir {
   $self->storage->create_ddl_dir($self, @_);
 }
 
-#line 1112
+#line 1142
 
 sub ddl_filename {
   my ($self, $type, $version, $dir, $preversion) = @_;
@@ -511,11 +526,11 @@ sub ddl_filename {
   $filename =~ s/::/-/g;
   $filename = File::Spec->catfile($dir, "$filename-$version-$type.sql");
   $filename =~ s/$version/$preversion-$version/ if($preversion);
-  
+
   return $filename;
 }
 
-#line 1131
+#line 1161
 
 sub thaw {
   my ($self, $obj) = @_;
@@ -523,13 +538,13 @@ sub thaw {
   return Storable::thaw($obj);
 }
 
-#line 1144
+#line 1174
 
 sub freeze {
   return Storable::freeze($_[1]);
 }
 
-#line 1155
+#line 1185
 
 sub dclone {
   my ($self, $obj) = @_;
@@ -537,7 +552,7 @@ sub dclone {
   return Storable::dclone($obj);
 }
 
-#line 1167
+#line 1197
 
 sub schema_version {
   my ($self) = @_;
@@ -557,14 +572,14 @@ sub schema_version {
 }
 
 
-#line 1206
+#line 1236
 
 sub register_class {
   my ($self, $moniker, $to_register) = @_;
   $self->register_source($moniker => $to_register->result_source_instance);
 }
 
-#line 1226
+#line 1256
 
 sub register_source {
   my $self = shift;
@@ -572,7 +587,7 @@ sub register_source {
   $self->_register_source(@_);
 }
 
-#line 1245
+#line 1275
 
 sub register_extra_source {
   my $self = shift;
@@ -626,7 +641,7 @@ sub _unregister_source {
 }
 
 
-#line 1331
+#line 1361
 
 {
   my $warn;
@@ -642,7 +657,7 @@ sub _unregister_source {
     $self->throw_exception
       ("No arguments to load_classes and couldn't load ${base} ($@)")
         if $@;
-  
+
     if ($self eq $target) {
       # Pathological case, largely caused by the docs on early C::M::DBIC::Plain
       foreach my $moniker ($self->sources) {
@@ -655,14 +670,14 @@ sub _unregister_source {
       $self->connection(@info);
       return $self;
     }
-  
+
     my $schema = $self->compose_namespace($target, $base);
     {
       no strict 'refs';
       my $name = join '::', $target, 'schema';
       *$name = Sub::Name::subname $name, sub { $schema };
     }
-  
+
     $schema->connection(@info);
     foreach my $moniker ($schema->sources) {
       my $source = $schema->source($moniker);
@@ -678,4 +693,4 @@ sub _unregister_source {
 
 1;
 
-#line 1391
+#line 1421

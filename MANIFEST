@@ -14,6 +14,7 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
+inc/SQL/Translator.pm
 inc/Test/Exception.pm
 inc/Test/Fixture/DBIC/Schema.pm
 inc/Test/LoadAllModules.pm

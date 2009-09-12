@@ -17,6 +17,7 @@ requires 'Hash::Merge';
 requires 'DateTime';
 requires 'DateTime::TimeZone';
 
+
 tests 't/*.t t/*/*.t t/*/*/*.t t/*/*/*/*.t';
 test_requires 'Test::More';
 test_requires 'Test::Exception';
@@ -26,6 +27,7 @@ test_requires 'DBIx::Class';
 test_requires 'DBIx::Class::Schema';
 test_requires 'Test::Fixture::DBIC::Schema';
 test_requires 'DBICx::TestDatabase';
+test_requires 'SQL::Translator' => '0.11002';
 author_tests 'xt';
 use_test_base;
 auto_include;
