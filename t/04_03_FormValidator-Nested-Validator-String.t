@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 34;
+use Test::More tests => 41;
 
 use FormValidator::Nested;
 use FormValidator::Nested::ProfileProvider::YAML;
@@ -101,6 +101,21 @@ $fvt = FormValidator::Nested->new({
     check({
         in => 'abc1',
     }, 'validator/string', 1, 'in', 'inキーは正しくありません');
+}
+
+{ # no_break
+    check({
+        no_break  => 'abc',
+    }, 'validator/string', 0);
+    check({
+        no_break => "abc\x0d",
+    }, 'validator/string', 1, 'no_break', 'no_breakキーに改行コードが含まれています');
+    check({
+        no_break => "abc\x0a",
+    }, 'validator/string', 1, 'no_break', 'no_breakキーに改行コードが含まれています');
+    check({
+        no_break => "abc\x0a\x0d",
+    }, 'validator/string', 1, 'no_break', 'no_breakキーに改行コードが含まれています');
 }
 
 sub check {

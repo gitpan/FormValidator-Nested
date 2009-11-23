@@ -35,6 +35,7 @@ requires:
   Class::Param: 0
   DateTime: 0
   DateTime::TimeZone: 0
+  Filter::Util::Call: 0
   Hash::Merge: 0
   Lingua::JA::Regular::Unicode: 0
   List::MoreUtils: 0
@@ -46,4 +47,4 @@ requires:
   namespace::clean: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.0501
+version: 0.06

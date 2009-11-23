@@ -30,4 +30,8 @@ params:
           list:
             - abc
             - cde
+  no_break:
+    name: 'no_breakキー'
+    validators:
+      - String#no_break
 

@@ -61,6 +61,15 @@ sub in {
     return 1;
 }
 
+sub no_break {
+    my ( $value, $options, $req ) = @_;
+
+    if ( $value =~ /[\x{0a}\x{0d}]/ ) {
+        return 0;
+    }
+    return 1;
+}
+
 
 1;
 

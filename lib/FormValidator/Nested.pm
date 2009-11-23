@@ -1,7 +1,7 @@
 package FormValidator::Nested;
 use Any::Moose;
 use namespace::clean -except => 'meta';
-our $VERSION = '0.0501';
+our $VERSION = '0.06';
 
 use FormValidator::Nested::ProfileProvider;
 use FormValidator::Nested::Messages::ja;

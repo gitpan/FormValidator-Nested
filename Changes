@@ -1,5 +1,8 @@
 Revision history for Perl extension FormValidator::Nested
 
+0.06    Mon Nov 23 18:00:57 UTC 2009
+        - add no_break validator
+
 0.0501  Sat Sep 12 01:59:06 2009
         - fix test_requires(SQL::Translator)
 

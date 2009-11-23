@@ -10,6 +10,7 @@ our $MESSAGES = {
     'String#max_length'     => '${name}は${max}文字以内で入力してください',
     'String#between_length' => '${name}は${min}-${max}文字で入力してください',
     'String#in'             => '${name}は正しくありません',
+    'String#no_break'       => '${name}に改行コードが含まれています',
 
     'DBIC#unique' => '${name}は既に使われています',
     'DBIC#exist'  => '${name}は存在しません',
