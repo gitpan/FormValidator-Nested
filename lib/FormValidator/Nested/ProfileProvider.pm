@@ -56,6 +56,10 @@ has 'visitor' => (
     is         => 'ro',
     isa        => 'Data::Visitor::Callback',
 );
+has 'filter' => (
+    is         => 'ro',
+    isa        => 'CodeRef',
+);
 
 sub BUILD {
     my $self = shift;
@@ -85,6 +89,9 @@ sub get_profile {
         }
         if ( $self->visitor ) {
             $data = $self->visitor->visit($data);
+        }
+        if ( $self->filter ) {
+            $self->filter->($data);
         }
 
         if ( $data->{extends} ) {

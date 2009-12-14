@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 24;
+use Test::More;
 use Test::Exception;
 
 use FormValidator::Nested;
@@ -73,3 +73,6 @@ sub check_validate {
     is $fvt->validate(Class::Param->new($req_hash), 'basic')->has_error => $error;
     is $fvt->validate($req_hash, 'basic')->has_error => $error;
 }
+
+
+done_testing;

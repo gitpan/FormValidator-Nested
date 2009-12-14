@@ -29,6 +29,7 @@ our $MESSAGES = {
     'File#max_size' => '${name}は${max}byte以内のファイルをアップロードしてください',
 
     'Number#number' => '${name}は数字で入力してください',
+    'Number#float' => '${name}は数値で入力してください',
 
     'Email#email' => '${name}の形式が正しくありません',
 

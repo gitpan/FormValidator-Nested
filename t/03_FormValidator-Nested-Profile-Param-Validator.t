@@ -70,7 +70,6 @@ is validate($email_array_required_validator, Class::Param->new({
 }))->has_error => 0;
 
 
-done_testing;
 
 
 sub validate {
@@ -78,3 +77,5 @@ sub validate {
 
     $validator->process($req, $validator->param->get_values($req));
 }
+
+done_testing;

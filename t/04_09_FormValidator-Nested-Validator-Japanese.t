@@ -33,7 +33,6 @@ $fvt = FormValidator::Nested->new({
     }, 'validator/japanese', 1, 'name_k', '名前_kはカタカナで入力してください');
 }
 
-done_testing;
 
 sub check {
     my ($param, $key, $error, $param_name, $msg) = @_;
@@ -48,3 +47,5 @@ sub check {
         is $error_params->{$param_name}->[0]->msg => $msg;
     }
 }
+
+done_testing;

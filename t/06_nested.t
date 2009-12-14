@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 17;
+use Test::More;
 
 use FormValidator::Nested;
 use FormValidator::Nested::ProfileProvider::YAML;
@@ -142,3 +142,5 @@ sub check {
         is $error_params->{$param_name}->[0]->msg => $msg;
     }
 }
+
+done_testing;

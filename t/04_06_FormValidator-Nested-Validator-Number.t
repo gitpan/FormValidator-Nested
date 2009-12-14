@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 11;
+use Test::More;
 
 use FormValidator::Nested;
 use FormValidator::Nested::ProfileProvider::YAML;
@@ -36,6 +36,18 @@ $fvt = FormValidator::Nested->new({
     }, 'validator/number', 1, 'zip', '郵便番号は数字で入力してください');
 }
 
+{ # float
+    check({
+        float => '10',
+    }, 'validator/number', 0);
+    check({
+        float => '10.1',
+    }, 'validator/number', 0);
+    check({
+        float => '10.1a',
+    }, 'validator/number', 1, 'float', 'floatは数値で入力してください');
+}
+
 
 sub check {
     my ($param, $key, $error, $param_name, $msg) = @_;
@@ -50,3 +62,5 @@ sub check {
         is $error_params->{$param_name}->[0]->msg => $msg;
     }
 }
+
+done_testing;

@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 26;
+use Test::More;
 
 use FormValidator::Nested::ProfileProvider::YAML;
 
@@ -37,9 +37,17 @@ is_deeply $provider_yaml->get_profile('foo/bar')->get_param('password')->get_val
 my $provider_yaml_init_all = FormValidator::Nested::ProfileProvider::YAML->new({
     dir => 't/var/profile/',
     init_read_all_profile => 1,
+    filter => sub {
+        my $data = shift;
+        $data->{____hogehogehoge___} = 1;
+    },
 });
 
 ok $provider_yaml_init_all->_exists_profile('index');
 
+# filter-test
+is $provider_yaml_init_all->get_profile('index')->data->{____hogehogehoge___} => 1;
 
 
+
+done_testing;

@@ -1,7 +1,7 @@
 use strict;
 use Encode;
 use utf8;
-use Test::More tests => 6;
+use Test::More;
 use Test::Exception;
 
 use FormValidator::Nested::Filter;
@@ -43,3 +43,5 @@ $req = $fvtf->filter($req, 'basic');
 is $req->param('tel')  => '09061642010';
 is $req->param('tel2') => '09061642010';
 
+
+done_testing;

@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 7;
+use Test::More;
 
 use FormValidator::Nested;
 use FormValidator::Nested::ProfileProvider::YAML;
@@ -37,3 +37,4 @@ is $error_params->{mail2}->[0]->msg => 'メールアドレスは必須だよー'
 is $error_params->{mail3}->[0]->msg => 'メールアドレスは100文字以内で入力してください';
 
 
+done_testing;

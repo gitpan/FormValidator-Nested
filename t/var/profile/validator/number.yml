@@ -3,4 +3,8 @@ params:
     name: '郵便番号'
     validators:
       - Number#number
+  float:
+    name: 'float'
+    validators:
+      - Number#float
 
